@@ -5,7 +5,7 @@ const ingredientRegister = async (req, res, next) => {
     const ingredientData = req.body;
     const id = await srvc.registerIngredient(ingredientData);
 
-    return res.status(200).json({ id, ...ingredientData });
+    return res.status(201).json({ id, ...ingredientData });
   } catch (error) {
     console.log(error.message);
     next(error);
