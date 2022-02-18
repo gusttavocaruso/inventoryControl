@@ -42,4 +42,26 @@ describe('Cadastro de novos ingredientes no estoque', () => {
 
   });
 
+  describe('Testa quando não é informado um nome ao tentar registrar um novo ingrediente', () => {
+
+    before(async () => {
+      response = await chai.request(server)
+        .post('/ingredient/new')
+        .send({
+          unitValue: 0.75,
+          unitMeasur: 'unity',
+          stockQnty: 30
+        });
+    });
+
+    it('A requisição deve retornar o status 400', () => {
+      expect(response).to.have.status(400);
+    })
+
+    it('A requisição deve retornar a mensagem: "name" is required', () => {
+      expect(response.body.message).to.be.equals('"name" is required');
+    })
+
+  });
+
 });
