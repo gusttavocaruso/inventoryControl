@@ -1,5 +1,6 @@
 // collection do estoque atual
-const stqIngredientes = [
+// name, unitValue, measur, stockQnty,
+const stqIngredientes = [ 
   {
     _id: 1,
     ingredName: 'ovo',
