@@ -1,0 +1,28 @@
+{
+  "name": "inventorycontrol",
+  "version": "1.0.0",
+  "description": "Inventory control",
+  "main": "./src/server.js",
+  "scripts": {
+    "start": "node .",
+    "dev": "nodemon .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gusttavocaruso/inventoryControl.git"
+  },
+  "author": "Gustacaru",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gusttavocaruso/inventoryControl/issues"
+  },
+  "homepage": "https://github.com/gusttavocaruso/inventoryControl#readme",
+  "dependencies": {
+    "express": "^4.17.3",
+    "mongodb": "^4.4.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
