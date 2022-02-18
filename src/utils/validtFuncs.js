@@ -13,6 +13,18 @@ const ingredientsEntriesValidation = ({ name, unitValue, unitMeasur, stockQnty }
   if (error) throw errHandle(400, error.message);
 };
 
+const productEntriesValidation = ({ name, salePrice, ingredients }) => {
+  const productSchema = joi.object({
+    name: joi.string().min(3).required(),
+    salePrice: joi.number().min(0).required(),
+    ingredients: joi.object().required(),
+  });
+  const { error } = productSchema
+    .validate({ name, salePrice, ingredients });
+  if (error) throw errHandle(400, error.message);
+};
+
 module.exports = {
   ingredientsEntriesValidation,
+  productEntriesValidation,
 };

@@ -1,8 +1,11 @@
 const { Router } = require('express');
-const ctrll = require('./layers/controllers/ingredientsController');
+const { ingredientRegister } = require('./layers/controllers/ingredientsController');
+const { productRegister } = require('./layers/controllers/productController');
 
 const router = Router();
 
-router.post('/ingredient/new', ctrll.ingredientRegister);
+router.post('/ingredient/new', ingredientRegister);
+
+router.post('/product/new', productRegister);
 
 module.exports = router;
