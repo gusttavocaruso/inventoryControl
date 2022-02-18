@@ -3,11 +3,6 @@
   "version": "1.0.0",
   "description": "Inventory control",
   "main": "./src/server.js",
-  "scripts": {
-    "start": "node .",
-    "dev": "nodemon .",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/gusttavocaruso/inventoryControl.git"
@@ -18,11 +13,21 @@
     "url": "https://github.com/gusttavocaruso/inventoryControl/issues"
   },
   "homepage": "https://github.com/gusttavocaruso/inventoryControl#readme",
+  "scripts": {
+    "start": "node .",
+    "dev": "nodemon .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "dependencies": {
     "express": "^4.17.3",
     "mongodb": "^4.4.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.15"
+    "chai": "^4.3.6",
+    "chai-http": "^4.3.0",
+    "mocha": "^9.2.0",
+    "mongodb-memory-server": "^6.9.6",
+    "nodemon": "^2.0.15",
+    "sinon": "^13.0.1"
   }
 }
