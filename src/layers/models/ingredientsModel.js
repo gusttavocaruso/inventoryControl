@@ -4,7 +4,7 @@ const postIngredient = async (ingredientData) => {
   const db = await connect();
   const { insertedId } = await db
     .collection('ingredients')
-    .insertOne({ ingredientData });
+    .insertOne({ ...ingredientData });
   return insertedId;
 };
 
