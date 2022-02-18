@@ -10,3 +10,5 @@ app.use(err);
 
 const PORT = 3001;
 app.listen(PORT, () => console.log(`On at: ${PORT}!`));
+
+module.exports = app;
