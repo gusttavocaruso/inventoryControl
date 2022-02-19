@@ -1,17 +1,15 @@
 const { Router } = require('express');
-
-const { ingredientRegister, ingredientsSearch,
- } = require('./layers/controllers/ingredientsController');
-
- const { productRegister, productsSearch,
- } = require('./layers/controllers/productController');
-
 const router = Router();
 
-router.post('/ingredient/new', ingredientRegister);
-router.get('/ingredients', ingredientsSearch);
+const ingrCtrll = require('./layers/controllers/ingredientsController');
+const prodCtrll = require('./layers/controllers/productController');
 
-router.post('/product/new', productRegister);
-router.get('/products', productsSearch);
+
+router.post('/ingredient/new', ingrCtrll.ingredientRegister);
+router.get('/ingredients', ingrCtrll.ingredientsSearch);
+
+router.post('/product/new', prodCtrll.productRegister);
+router.get('/products', prodCtrll.productsSearch);
+
 
 module.exports = router;
