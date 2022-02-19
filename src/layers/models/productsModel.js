@@ -8,6 +8,15 @@ const postProduct = async (productData) => {
   return insertedId;
 };
 
+const getProducts = async () => {
+  const db = await connect();
+  const products = await db
+    .collection('products')
+    .find().toArray();
+  return products;
+};
+
 module.exports = {
   postProduct,
+  getProducts,
 };

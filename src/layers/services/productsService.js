@@ -8,6 +8,12 @@ const registerProduct = async (productData) => {
   return productId;
 };
 
+const searchProducts = async () => {
+  const products = await mdl.getProducts();
+  return products;
+};
+
 module.exports = {
   registerProduct,
+  searchProducts,
 };

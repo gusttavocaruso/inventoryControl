@@ -12,6 +12,18 @@ const productRegister = async (req, res, next) => {
   }
 };
 
+const productsSearch = async (_req, res, next) => {
+  try {
+    const products = await srvc.searchProducts();
+
+    return res.status(200).json(products);
+  } catch (error) {
+    console.log(error.message);
+    next(error);
+  }
+};
+
 module.exports = {
   productRegister,
+  productsSearch,
 };
