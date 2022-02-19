@@ -8,6 +8,15 @@ const postIngredient = async (ingredientData) => {
   return insertedId;
 };
 
+const getIngredients = async () => {
+  const db = await connect();
+  const ingredients = await db
+    .collection('ingredients')
+    .find().toArray();
+  return ingredients;
+};
+
 module.exports = {
   postIngredient,
+  getIngredients,
 };

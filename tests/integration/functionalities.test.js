@@ -2,6 +2,7 @@ const chai = require('chai');
 const sinon = require('sinon');
 const chaiHttp = require('chai-http');
 const server = require('../../src/server');
+
 const mongodb = require('mongodb').MongoClient;
 const { getConnection } = require('./connectionMock');
 

@@ -12,6 +12,18 @@ const ingredientRegister = async (req, res, next) => {
   }
 };
 
+const ingredientsSearch = async (_req, res, next) => {
+  try {
+    const ingredients = await srvc.searchIngredients();
+
+    return res.status(200).json(ingredients);
+  } catch (error) {
+    console.log(error.message);
+    next(error);
+  }
+};
+
 module.exports = {
   ingredientRegister,
+  ingredientsSearch,
 };

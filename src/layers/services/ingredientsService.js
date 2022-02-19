@@ -8,6 +8,12 @@ const registerIngredient = async (ingredientData) => {
   return ingredientId;
 };
 
+const searchIngredients = async () => {
+  const ingredients = await mdl.getIngredients();
+  return ingredients;
+};
+
 module.exports = {
   registerIngredient,
+  searchIngredients,
 };
