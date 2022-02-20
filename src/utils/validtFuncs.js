@@ -24,7 +24,14 @@ const productEntriesValidation = ({ name, salePrice, ingredients }) => {
   if (error) throw errHandle(400, error.message);
 };
 
+const loginEntriesValidation = (uss, pss) => {
+  if (uss !== 'admin' || pss !== 'admin') {
+    throw errHandle(401, 'Username or password is wrong')
+  }
+};
+
 module.exports = {
   ingredientsEntriesValidation,
   productEntriesValidation,
+  loginEntriesValidation,
 };
