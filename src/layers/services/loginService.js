@@ -7,6 +7,16 @@ const JWT_CONFIG = { expiresIn: '1d', algorithm: 'HS256' };
 
 const tokenGenerate = (payload) => jwt.sign({ payload }, API_SECRET, JWT_CONFIG);
 
+const tokenVerify = (token) => {
+  try {
+    const { payload } = jwt.verify(token, API_SECRET);
+    return payload;
+  } catch (error) {
+    console.log(error.message);
+    return null;
+  }
+};
+
 const signInService = ({ username, password }) => {
   vldt.loginEntriesValidation(username, password);
 
@@ -16,4 +26,5 @@ const signInService = ({ username, password }) => {
 
 module.exports = {
   signInService,
+  tokenVerify,
 };

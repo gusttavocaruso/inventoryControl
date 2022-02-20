@@ -25,13 +25,18 @@ const productEntriesValidation = ({ name, salePrice, ingredients }) => {
 };
 
 const loginEntriesValidation = (uss, pss) => {
-  if (uss !== 'admin' || pss !== 'admin') {
+  if (uss !== 'owner' || pss !== 'admin123') {
     throw errHandle(401, 'Username or password is wrong')
   }
+};
+
+const tokenValidation = (token) => {
+  if (token !== 'owner') throw errHandle(401, 'unauthorized');
 };
 
 module.exports = {
   ingredientsEntriesValidation,
   productEntriesValidation,
   loginEntriesValidation,
+  tokenValidation,
 };
