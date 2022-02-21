@@ -23,7 +23,20 @@ const ingredientsSearch = async (_req, res, next) => {
   }
 };
 
+const ingredientSearchById = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const ingredient = await srvc.searchIngredientById(id);
+
+    return res.status(200).json(ingredient);
+  } catch (error) {
+    console.log(error.message);
+    next(error);
+  }
+};
+
 module.exports = {
   ingredientRegister,
   ingredientsSearch,
+  ingredientSearchById,
 };
