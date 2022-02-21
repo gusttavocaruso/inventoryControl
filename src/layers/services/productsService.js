@@ -13,7 +13,13 @@ const searchProducts = async () => {
   return products;
 };
 
+const searchProductById = async (id) => {
+  const product = await mdl.getProductById(id);
+  return product;
+};
+
 module.exports = {
   registerProduct,
   searchProducts,
+  searchProductById,
 };

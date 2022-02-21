@@ -14,6 +14,7 @@ router.get('/ingredients/:id', ingrCtrll.ingredientSearchById);
 
 router.post('/product/new', auth, prodCtrll.productRegister);
 router.get('/products', prodCtrll.productsSearch);
+router.get('/products/:id', prodCtrll.productSearchById);
 
 
 module.exports = router;
