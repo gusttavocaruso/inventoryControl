@@ -18,20 +18,77 @@ before(async () => {
 after(() => { mongodb.connect.restore() });
 
 
+describe('Logando no sistema', () => {
+  let response;
+
+  describe('Testa quando são informadas entradas válidas para realizar login no sistema', () => {
+
+    before(async () => {
+      response = await chai.request(server)
+        .post('/login')
+        .send({
+          username: 'owner',
+          password: 'admin123',
+        });
+    });
+
+    it('A requisição deve retornar o status 202', () => {
+      expect(response).to.have.status(202);
+    })
+
+    it('A requisição deve retornar um objeto com um token', () => {
+      expect(response.body).to.be.an('object');
+      expect(response.body).to.haveOwnProperty('token');
+    })
+
+  });
+
+  describe('Testa quando não são informadas entradas válidas para realizar login no sistema', () => {
+
+    before(async () => {
+      response = await chai.request(server)
+        .post('/login')
+        .send({
+          username: 'own',
+          password: 'admin',
+        });
+    });
+
+    it('A requisição deve retornar o status 401', () => {
+      expect(response).to.have.status(401);
+    })
+
+    it('A requisição deve retornar a mensagem: Username or password is wrong', () => {
+      expect(response.body.message).to.be.equals('Username or password is wrong');
+    })
+
+  });
+
+});
+
 describe('Cadastro de novos ingredientes no estoque', () => {
   let response;
 
   describe('Testa quando são informadas entradas válidas para cadastro de um novo ingrediente', () => {
 
     before(async () => {
-      response = await chai.request(server)
-        .post('/ingredient/new')
+      const mockLogin = await chai.request(server)
+        .post('/login')
         .send({
-          name: 'ovo',
-          unitValue: 0.75,
-          unitMeasur: 'unity',
-          stockQnty: 30
+          username: 'owner',
+          password: 'admin123',
         });
+      const token = await mockLogin.body.token;
+
+      response = await chai.request(server)
+      .post('/ingredient/new')
+      .set('authorization', token)
+      .send({
+        name: 'ovo',
+        unitValue: 0.75,
+        unitMeasur: 'unity',
+        stockQnty: 30
+      });
     });
 
     it('A requisição deve retornar o status 201', () => {
@@ -48,8 +105,17 @@ describe('Cadastro de novos ingredientes no estoque', () => {
   describe('Testa quando não é informado um nome ao tentar registrar um novo ingrediente', () => {
 
     before(async () => {
+      const mockLogin = await chai.request(server)
+        .post('/login')
+        .send({
+          username: 'owner',
+          password: 'admin123',
+        });
+      const token = await mockLogin.body.token;
+
       response = await chai.request(server)
         .post('/ingredient/new')
+        .set('authorization', token)
         .send({
           unitValue: 0.75,
           unitMeasur: 'unity',
@@ -75,8 +141,17 @@ describe('Cadastro de novos produtos', () => {
   describe('Testa quando são informadas entradas válidas para cadastro de um novo produto', () => {
 
     before(async () => {
+      const mockLogin = await chai.request(server)
+        .post('/login')
+        .send({
+          username: 'owner',
+          password: 'admin123',
+        });
+      const token = await mockLogin.body.token;
+
       response = await chai.request(server)
         .post('/product/new')
+        .set('authorization', token)
         .send({
           name: 'Pipoca média',
           salePrice: 10,
@@ -98,8 +173,17 @@ describe('Cadastro de novos produtos', () => {
   describe('Testa quando não é informado um preço de venda ao tentar registrar de um novo produto', () => {
 
     before(async () => {
+      const mockLogin = await chai.request(server)
+        .post('/login')
+        .send({
+          username: 'owner',
+          password: 'admin123',
+        });
+      const token = await mockLogin.body.token;
+
       response = await chai.request(server)
         .post('/product/new')
+        .set('authorization', token)
         .send({
           name: 'Pipoca grande',
           ingredients: { milho: 0.85, manteiga: 0.075 },
