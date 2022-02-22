@@ -6,26 +6,27 @@ const saleNew = async ({ product, quantity }) => {
   const { ingredients } = await prodMdl.getProductByName(product);
 
   const ingrdtsOnPrdct = Object.keys(ingredients);
-  const ingrdtsQnty = Object.values(ingredients);
+  const ingrRequiredQnty = Object.values(ingredients);
 
-  // recupera do estoque ingredientes do produto em questão
-  const actualStock = await Promise
+  // recupera do estoque, ingredientes do produto
+  const actualIngredientsStock = await Promise
     .all(ingrdtsOnPrdct
-    .map(async (ingr) => await ingrMdl
-    .getIngredientByName(ingr)));
+      .map(async (ingr) => await ingrMdl
+        .getIngredientByName(ingr)));
 
   // recupera quantidade dos ingredientes em estoque
-  const ingrdStockQnty = actualStock
+  const ingrdStockQnty = actualIngredientsStock
     .map(({ stockQnty }) => stockQnty);
 
   // verifica se a quantidade de ingredientes necessárias para produzir os produtos que serão vendidos esta disponível no estoque
   const ingrdAvailable = ingrdStockQnty
-    .map((iSQ) => ingrdtsQnty
-    .map((iQ) => ((iSQ - iQ) > 0) ? true : false));
+    .map((iSQ, i) => ingrRequiredQnty
+      .map((iQ, j) => i === j ? (iSQ - (iQ * quantity)) : false));
+
   vldt.stockAvailableValidation(ingrdAvailable);
 
   console.log(ingrdStockQnty);
-  console.log(ingrdtsQnty);
+  console.log(ingrRequiredQnty);
   console.log(ingrdAvailable);
 };
 
