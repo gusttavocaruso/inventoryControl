@@ -33,9 +33,19 @@ const getProductByName = async (productName) => {
   return product;
 };
 
+const putImage = async (id, imagePath) => {
+  const db = await connect();
+  await db.collection('products')
+    .updateOne(
+      { _id: ObjectId(id) },
+      { $set: { image: imagePath } },
+    );
+};
+
 module.exports = {
   postProduct,
   getProducts,
   getProductById,
   getProductByName,
+  putImage,
 };

@@ -26,7 +26,7 @@ const productsSearch = async (_req, res, next) => {
 const productSearchById = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const product = await searchProductById(id);
+    const product = await srvc.searchProductById(id);
 
     return res.status(200).json(product);
   } catch (error) {
@@ -35,8 +35,22 @@ const productSearchById = async (req, res, next) => {
   }
 };
 
+const productImageAdd = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    await srvc.addProductImage(id);
+
+    return res.status(200).json({ message: 'image already add'});
+  } catch (error) {
+    console.log(error.message);
+    next(error);
+  }
+};
+
+
 module.exports = {
   productRegister,
   productsSearch,
   productSearchById,
+  productImageAdd,
 };

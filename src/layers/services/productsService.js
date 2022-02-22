@@ -18,8 +18,14 @@ const searchProductById = async (id) => {
   return product;
 };
 
+const addProductImage = async (id) => {
+  const imagePath = `localhost:3001/src/uploads/${id}.jpeg`;
+  await mdl.putImage(id, imagePath);
+};
+
 module.exports = {
   registerProduct,
   searchProducts,
   searchProductById,
+  addProductImage,
 };
