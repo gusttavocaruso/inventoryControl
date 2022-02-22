@@ -25,8 +25,17 @@ const getIngredientById = async (id) => {
   return ingredient;
 };
 
+const getIngredientByName = async (ingrd) => {
+  const db = await connect();
+  const ingredient = await db
+    .collection('ingredients')
+    .findOne({ name: ingrd });
+  return ingredient;
+};
+
 module.exports = {
   postIngredient,
   getIngredients,
   getIngredientById,
+  getIngredientByName,
 };

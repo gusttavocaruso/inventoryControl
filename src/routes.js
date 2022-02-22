@@ -5,6 +5,7 @@ const auth = require('./layers/middlewares/auth');
 const logCtrll = require('./layers/controllers/loginController');
 const ingrCtrll = require('./layers/controllers/ingredientsController');
 const prodCtrll = require('./layers/controllers/productController');
+const saleCtrll = require('./layers/controllers/saleController');
 
 router.post('/login', logCtrll.signIn);
 
@@ -15,6 +16,8 @@ router.get('/ingredients/:id', ingrCtrll.ingredientSearchById);
 router.post('/product/new', auth, prodCtrll.productRegister);
 router.get('/products', prodCtrll.productsSearch);
 router.get('/products/:id', prodCtrll.productSearchById);
+
+router.post('/sales/new', saleCtrll.newSale);
 
 
 module.exports = router;

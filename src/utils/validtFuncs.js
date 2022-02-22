@@ -34,9 +34,14 @@ const tokenValidation = (token) => {
   if (token !== 'owner') throw errHandle(401, 'unauthorized');
 };
 
+const stockAvailableValidation = () => {
+
+};
+
 module.exports = {
   ingredientsEntriesValidation,
   productEntriesValidation,
   loginEntriesValidation,
   tokenValidation,
+  stockAvailableValidation,
 };

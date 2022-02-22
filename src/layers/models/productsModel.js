@@ -25,8 +25,17 @@ const getProductById = async (id) => {
   return product;
 };
 
+const getProductByName = async (productName) => {
+  const db = await connect();
+  const product = await db
+    .collection('products')
+    .findOne({ name: productName })
+  return product;
+};
+
 module.exports = {
   postProduct,
   getProducts,
   getProductById,
+  getProductByName,
 };
