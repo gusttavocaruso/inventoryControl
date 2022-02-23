@@ -13,9 +13,9 @@
 
 - Instale o banco de dados `mongodb` OU rode um container com sua imagem com docker.
 
-- Para iniciar o servidor rode o comando `npm start` ou `npm run dev`. Ele rodará na porta :3001;
-
 - O projeto contém testes de integração. Para ter acesso aos testes, verifique a pasta `./tests` ou rode o comando `npm test`;
+
+- **Para iniciar o servidor e verificar as rotas, rode o comando `npm start` ou `npm run dev`**. Ele rodará na porta :3001;
 
 #
 
