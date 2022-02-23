@@ -17,6 +17,66 @@
 
 - O projeto contém testes de integração. Para ter acesso aos testes, verifique a pasta `./tests` ou rode o comando `npm test`;
 
+#
+
+Esse projeto não tem front-end, por isso, para acessar todas as rotas utilize um client como 
+<a target="_blank" href="https://insomnia.rest/">Insomnia</a>, <a target="_blank" href="https://www.postman.com/">Postman</a> ou similar.
+
+As rotas disponíveis são:
+
+###  1. http://localhost:3001/login - requisição HTTP: `POST` <br>
+  Esse endpoint faz o login no sistema. Ela deve recer um JSON no formato:
+
+```json
+  {
+    "username": "owner",
+    "password": "admin123"
+  }
+```
+
+###  2. http://localhost:3001/ingredient/new - requisição HTTP: `POST` <br>
+  Esse endpoint cria um novo ingrediente. Para acessar essa rota é necessário estar logado. Ela deve recer um JSON no formato:
+
+```json
+  {
+    "name": "string",
+    "unitValue": number,
+    "unitMeasur": "kg" or "unity"
+    "stockQnty": number
+  }
+```
+
+###  3. http://localhost:3001/ingredients - requisição HTTP: `GET` <br>
+  Esse endpoint busca os ingredientes criados.
+
+###  4. http://localhost:3001/ingredients/:id - requisição HTTP: `GET` <br>
+  Esse endpoint busca um ingrediente específico, indicado pelo ID que deve estar na rota onde `/:id`
+
+###  5. http://localhost:3001/product/new - requisição HTTP: `POST` <br>
+  Esse endpoint cria um novo produto. Para acessar essa rota é necessário estar logado. Ela deve recer um JSON no formato:
+
+```json
+  {
+    "name": "string",
+    "salePrice": number,
+    "ingredients": {
+      "nome-ingrediente": number,
+      "nome-ingrediente": number
+    }
+  }
+```
+
+###  6. http://localhost:3001/products - requisição HTTP: `GET` <br>
+  Esse endpoint busca os produtos criados.
+
+###  7. http://localhost:3001/products/:id - requisição HTTP: `GET` <br>
+  Esse endpoint busca um produto específico, indicado pelo ID que deve estar na rota onde `/:id`
+
+###  8. http://localhost:3001/products/:id/image - requisição HTTP: `PUT` <br>
+  Esse endpoint adiciona uma imagem à um produto específico, indicado pelo ID que deve estar na rota onde `/:id`. Para acessar essa rota é necessário estar logado.
+
+#
+
 Esse projeto utiliza as depêndencias diretas:
 - `express` - framework para construção de servidores web e requisições HTTP,
 - `mongodb` - banco de dados noSQL,
