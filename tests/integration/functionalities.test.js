@@ -2,9 +2,13 @@ const chai = require('chai');
 const sinon = require('sinon');
 const chaiHttp = require('chai-http');
 const server = require('../../src/server');
+const jwt = require('jsonwebtoken');
+const fs = require('fs');
+const { resolve } = require('path');
 
 const mongodb = require('mongodb').MongoClient;
 const { getConnection } = require('./connectionMock');
+const { send } = require('process');
 
 chai.use(chaiHttp);
 const { expect } = chai;
@@ -38,8 +42,15 @@ describe('Logando no sistema', () => {
 
     it('A requisição deve retornar um objeto com um token', () => {
       expect(response.body).to.be.an('object');
-      expect(response.body).to.haveOwnProperty('token');
+      expect(response.body).to.have.property('token');
     })
+
+    it('a propriedade "token" deve conter um JWT com o username usado no login', () => {
+      const { token } = response.body;
+      const { payload } = jwt.decode(token);
+
+      expect(payload).to.be.equals('owner');
+    });
 
   });
 
@@ -196,6 +207,52 @@ describe('Cadastro de novos produtos', () => {
 
     it('A requisição deve retornar a mensagem: "salePrice" is required', () => {
       expect(response.body.message).to.be.equals('"salePrice" is required');
+    })
+
+  });
+
+});
+
+describe('Cadastro de imagem no produto', () => {
+  let response;
+
+  describe('Testa quando é adicionado uma imagem à um produto com sucesso', () => {
+
+    before(async () => {
+      // const folderPath = resolve(__dirname, '../../uploads');
+      const mockLogin = await chai.request(server)
+        .post('/login')
+        .send({
+          username: 'owner',
+          password: 'admin123',
+        });
+      const token = await mockLogin.body.token;
+
+      const mockProduct = await chai.request(server)
+        .post('/product/new')
+        .set('authorization', token)
+        .send({
+          name: 'Copão',
+          salePrice: 10,
+          ingredients: { gelo: 0.05, wisky: 0.5 },
+        });
+
+      response = await chai.request(server)
+        .put(`/products/${mockProduct.body.id}/image`)
+        .set('authorization', token)
+        // .set('content-type', 'multipart/form-data')
+        .send({ image: `${mockProduct.body.id}.jpeg` })
+        // .attach('image', fs.readFileSync(`${folderPath}/${mockProduct.body.id}.jpeg`))
+        // console.log(`${folderPath}/${body.id}.jpeg`)
+    });
+
+    it('A requisição deve retornar o status 200', () => {
+      expect(response).to.have.status(200);
+    })
+
+    it('A requisição deve retornar um objeto com uma mensagem: image already add', () => {
+      expect(response.body).to.be.an('object');
+      expect(response.body.message).to.be.equals('image already add');
     })
 
   });
