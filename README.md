@@ -40,9 +40,9 @@ As rotas disponíveis são:
 ```json
   {
     "name": "string",
-    "unitValue": number,
-    "unitMeasur": "kg" or "unity"
-    "stockQnty": number
+    "unitValue": 0,
+    "unitMeasur": "kg or unity",
+    "stockQnty": 0
   }
 ```
 
@@ -58,10 +58,10 @@ As rotas disponíveis são:
 ```json
   {
     "name": "string",
-    "salePrice": number,
+    "salePrice": 0,
     "ingredients": {
-      "nome-ingrediente": number,
-      "nome-ingrediente": number
+      "nome-ingrediente": 0,
+      "nome-ingrediente": 0
     }
   }
 ```
